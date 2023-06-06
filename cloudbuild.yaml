@@ -1,0 +1,17 @@
+steps:
+- name: gcr.io/kaniko-project/executor:latest
+  args:
+  - --cache=true
+  - --cache-ttl=168h
+  - --destination=${_REGION}-docker.pkg.dev/${PROJECT_ID}/registry/web-app:${COMMIT_SHA}
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  entrypoint: gcloud
+  args:
+  - run
+  - deploy
+  - web-app
+  - --execution-environment=gen2
+  - --image=${_REGION}-docker.pkg.dev/${PROJECT_ID}/registry/web-app:${COMMIT_SHA}
+  - --region=${_REGION}
+substitutions:
+  _REGION: us-central1
