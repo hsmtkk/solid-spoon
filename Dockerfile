@@ -6,6 +6,6 @@ RUN go mod download
 COPY web.go .
 RUN CGO_ENABLED=0 go build -o web
 
-FROM AS runtime
+FROM gcr.io/distroless/static-debian11 AS runtime
 COPY --from=builder /app/web /app/web
 ENTRYPOINT ["/app/web"]
