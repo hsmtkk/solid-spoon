@@ -89,6 +89,7 @@ func (h *handler) ListGet(ectx echo.Context) error {
 func (h *handler) NewGet(ectx echo.Context) error {
 	html := `<form method="POST" action="/new">
 <input type="text" name="text">
+<input type="submit">
 </form>`
 	return ectx.HTML(http.StatusOK, html)
 }
