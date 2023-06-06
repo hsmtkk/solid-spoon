@@ -100,10 +100,7 @@ func (h *handler) NewPost(ectx echo.Context) error {
 		return fmt.Errorf("failed to init firestore client: %w", err)
 	}
 	defer client.Close()
-	id, err := uuid.NewString()
-	if err != nil {
-		return fmt.Errorf("failed to generate new ID: %w", err)
-	}
+	id := uuid.NewString()
 	text := ectx.FormValue("text")
 	if _, err := client.Collection(COLLECTION).Doc(id).Set(ctx, item{Text: text}); err != nil {
 		return fmt.Errorf("failed to set item: %w", err)
